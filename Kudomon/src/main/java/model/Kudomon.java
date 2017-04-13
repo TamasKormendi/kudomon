@@ -42,6 +42,11 @@ public class Kudomon {
 		return Objects.hash(species, positionX, positionY, type);
 	}
 	
+	@Override
+	public String toString(){
+		return species;
+	}
+	
 	public String getSpecies(){
 		return species;
 	}

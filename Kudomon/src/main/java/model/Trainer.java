@@ -37,7 +37,8 @@ public class Trainer {
 	}
 	
 	public void captureKudomon(int index){
-		Kudomon toCapture = Kudomon.getKudomonList().get(index);
+		ArrayList<Kudomon> nearbyKudomons = getNearbyKudomons();
+		Kudomon toCapture = nearbyKudomons.get(index);
 		
 		capturedKudomon.add(toCapture);
 		Kudomon.getKudomonList().remove(toCapture);
