@@ -22,8 +22,14 @@ public class Kudomon {
 		positionY = y;
 		type = t;
 		
-		defaultTurnsToCapture = captureTurns;
-		remainingTurnsToCapture = captureTurns;
+		if (captureTurns > 0){
+			defaultTurnsToCapture = captureTurns;
+			remainingTurnsToCapture = captureTurns;
+		}
+		else{
+			defaultTurnsToCapture = 1;
+			remainingTurnsToCapture = 1;
+		}
 		
 		kudomonList.add(this);
 	}
