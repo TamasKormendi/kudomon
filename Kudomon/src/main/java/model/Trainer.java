@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Trainer {
 	
@@ -9,10 +10,14 @@ public class Trainer {
 	private int positionX;
 	private int positionY;
 	
+	private List<Kudomon> capturedKudomon;
+	
 	public Trainer(String n, int x, int y){
 		name = n;
 		positionX = x;
 		positionY = y;
+		
+		capturedKudomon = new ArrayList<Kudomon>();
 	}
 	
 	public ArrayList<Kudomon> getNearbyKudomons(){
@@ -29,5 +34,12 @@ public class Trainer {
 			}
 		}
 		return nearbyList;
+	}
+	
+	public void captureKudomon(int index){
+		Kudomon toCapture = Kudomon.getKudomonList().get(index);
+		
+		capturedKudomon.add(toCapture);
+		Kudomon.getKudomonList().remove(toCapture);
 	}
 }
