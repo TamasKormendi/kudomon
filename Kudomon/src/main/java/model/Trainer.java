@@ -10,12 +10,16 @@ public class Trainer {
 	private int positionX;
 	private int positionY;
 	
+	private Kudomon captureInProgress;
+	
 	private List<Kudomon> capturedKudomon;
 	
 	public Trainer(String n, int x, int y){
 		name = n;
 		positionX = x;
 		positionY = y;
+		
+		captureInProgress = null;
 		
 		capturedKudomon = new ArrayList<Kudomon>();
 	}
@@ -36,11 +40,33 @@ public class Trainer {
 		return nearbyList;
 	}
 	
-	public void captureKudomon(int index){
+	public void startCapture(int index){
 		ArrayList<Kudomon> nearbyKudomons = getNearbyKudomons();
 		Kudomon toCapture = nearbyKudomons.get(index);
 		
-		capturedKudomon.add(toCapture);
-		Kudomon.getKudomonList().remove(toCapture);
+		captureKudomon(toCapture);
+		
+		if (toCapture.getRemainingTurnsToCapture() != 0){
+			captureInProgress = toCapture;
+		}
+	}
+	
+	public void captureKudomon(Kudomon kudomon){
+		kudomon.decrementRemainingTurnsToCapture();
+		
+		if (kudomon.getRemainingTurnsToCapture() == 0){
+			capturedKudomon.add(kudomon);
+			Kudomon.getKudomonList().remove(kudomon);
+			captureInProgress = null;
+			System.out.println(name + " captured " + kudomon.getSpecies() + " !");
+		}
+		else{
+			System.out.println(name + " needs " + kudomon.getRemainingTurnsToCapture() + " turns to capture " + kudomon.getSpecies() + " !");
+		}
+	}
+	
+	@Override
+	public String toString(){
+		return name;
 	}
 }
