@@ -73,4 +73,16 @@ public class Trainer {
 	public String toString(){
 		return name;
 	}
+	
+	public String getName(){
+		return name;
+	}
+	
+	public Kudomon getCaptureInProgress(){
+		return captureInProgress;
+	}
+	
+	public static ArrayList<Trainer> getTrainerList(){
+		return trainerList;
+	}
 }
