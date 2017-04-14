@@ -9,16 +9,27 @@ public class Kudomon {
 	
 	private int positionX;
 	private int positionY;
+	private int defaultTurnsToCapture;
+	private int remainingTurnsToCapture;
 	
 	private Type type;
 	
 	private static ArrayList<Kudomon> kudomonList = new ArrayList<Kudomon>();
 	
-	public Kudomon(String sp, int x, int y, Type t){
+	public Kudomon(String sp, int x, int y, int captureTurns, Type t){
 		species = sp;
 		positionX = x;
 		positionY = y;
 		type = t;
+		
+		if (captureTurns > 0){
+			defaultTurnsToCapture = captureTurns;
+			remainingTurnsToCapture = captureTurns;
+		}
+		else{
+			defaultTurnsToCapture = 1;
+			remainingTurnsToCapture = 1;
+		}
 		
 		kudomonList.add(this);
 	}
@@ -33,13 +44,14 @@ public class Kudomon {
 		}
 		Kudomon kudo = (Kudomon) obj;
 		
-		return positionX == kudo.positionX && positionY == kudo.positionY &&
+		return positionX == kudo.positionX && positionY == kudo.positionY && defaultTurnsToCapture == kudo.defaultTurnsToCapture &&
+				remainingTurnsToCapture == kudo.defaultTurnsToCapture &&
 				Objects.equals(species, kudo.species) && Objects.equals(type, kudo.type);
 	}
 	
 	@Override
 	public int hashCode(){
-		return Objects.hash(species, positionX, positionY, type);
+		return Objects.hash(species, positionX, positionY, defaultTurnsToCapture, remainingTurnsToCapture, type);
 	}
 	
 	@Override
@@ -63,7 +75,19 @@ public class Kudomon {
 		return type;
 	}
 	
+	public int getDefaultTurnsToCapture(){
+		return defaultTurnsToCapture;
+	}
+	
+	public int getRemainingTurnsToCapture(){
+		return remainingTurnsToCapture;
+	}
+	
 	public static ArrayList<Kudomon> getKudomonList(){
 		return kudomonList;
+	}
+	
+	public void decrementRemainingTurnsToCapture(){
+		--remainingTurnsToCapture;
 	}
 }

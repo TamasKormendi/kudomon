@@ -14,9 +14,9 @@ public class CaptureTest {
 
 	Trainer testTrainer1 = new Trainer("Mr Test", 10, 10);
 	
-	Kudomon kudo1 = new Kudomon("TestSpecies1", 15, 15, Type.ELECTRIC);
-	Kudomon kudo2 = new Kudomon("TestSpecies2", 7, 7, Type.FIRE);
-	Kudomon kudo3 = new Kudomon("TestSpecies3", 1000, 1000, Type.GRASS);
+	Kudomon kudo1 = new Kudomon("TestSpecies1", 15, 15, 1, Type.ELECTRIC);
+	Kudomon kudo2 = new Kudomon("TestSpecies2", 7, 7, 1, Type.FIRE);
+	Kudomon kudo3 = new Kudomon("TestSpecies3", 1000, 1, 1000, Type.GRASS);
 	
 	@After
 	public void setup(){
@@ -38,7 +38,7 @@ public class CaptureTest {
 	
 	@Test
 	public void testCapture(){
-		testTrainer1.captureKudomon(1);
+		testTrainer1.startCapture(1);
 		
 		ArrayList<Kudomon> testFreeList = new ArrayList<Kudomon>();
 		
