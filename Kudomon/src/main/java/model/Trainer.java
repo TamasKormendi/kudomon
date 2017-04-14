@@ -12,7 +12,9 @@ public class Trainer {
 	
 	private Kudomon captureInProgress;
 	
-	private List<Kudomon> capturedKudomon;
+	private ArrayList<Kudomon> capturedKudomon;
+	
+	private static ArrayList<Trainer> trainerList = new ArrayList();
 	
 	public Trainer(String n, int x, int y){
 		name = n;
@@ -22,6 +24,8 @@ public class Trainer {
 		captureInProgress = null;
 		
 		capturedKudomon = new ArrayList<Kudomon>();
+		
+		trainerList.add(this);
 	}
 	
 	public ArrayList<Kudomon> getNearbyKudomons(){
