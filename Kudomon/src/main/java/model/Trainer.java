@@ -65,7 +65,7 @@ public class Trainer {
 			System.out.println(name + " captured " + kudomon.getSpecies() + " !");
 		}
 		else{
-			System.out.println(name + " needs " + kudomon.getRemainingTurnsToCapture() + " turns to capture " + kudomon.getSpecies() + " !");
+			System.out.println(name + " needs " + kudomon.getRemainingTurnsToCapture() + " turns to capture " + kudomon.getSpecies() + "!");
 		}
 	}
 	
