@@ -34,6 +34,55 @@ public class Kudomon {
 		kudomonList.add(this);
 	}
 	
+	public boolean isSuperEffectiveAgainst(Kudomon toBattle){
+		switch(type){
+			case GRASS:
+				if(toBattle.getType().equals(Type.ROCK)){
+					return true;
+				}
+				else{
+					return false;
+				}
+			case FIRE:
+				if(toBattle.getType().equals(Type.GRASS)){
+					return true;
+				}
+				else{
+					return false;
+				}
+			case ELECTRIC:
+				if(toBattle.getType().equals(Type.WATER)){
+					return true;
+				}
+				else{
+					return false;
+				}
+			case WATER:
+				if(toBattle.getType().equals(Type.FIRE)){
+					return true;
+				}
+				else{
+					return false;
+				}
+			case ROCK:
+				if(toBattle.getType().equals(Type.ELECTRIC)){
+					return true;
+				}
+				else{
+					return false;
+				}
+			case PSYCHIC:
+				if(!toBattle.getType().equals(Type.PSYCHIC)){
+					return true;
+				}
+				else{
+					return false;
+				}
+			default:
+				return false;
+		}
+	}
+	
 	@Override
 	public boolean equals(Object obj){
 		if (obj == this){
