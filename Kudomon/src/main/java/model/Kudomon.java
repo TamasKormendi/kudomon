@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Random;
 
 public class Kudomon {
 	
@@ -12,23 +13,46 @@ public class Kudomon {
 	private int defaultTurnsToCapture;
 	private int remainingTurnsToCapture;
 	
+	private int defaultHP;
+	private int remainingHP;
+	private int cp;
+	
 	private Type type;
+	
+	private Random rng;
 	
 	private static ArrayList<Kudomon> kudomonList = new ArrayList<Kudomon>();
 	
-	public Kudomon(String sp, int x, int y, int captureTurns, Type t){
+	public Kudomon(String sp, int x, int y, int captureTurns, int healthP, int combatP, Type t){
 		species = sp;
 		positionX = x;
 		positionY = y;
 		type = t;
+		rng = new Random();
 		
 		if (captureTurns > 0){
 			defaultTurnsToCapture = captureTurns;
-			remainingTurnsToCapture = captureTurns;
 		}
 		else{
 			defaultTurnsToCapture = 1;
-			remainingTurnsToCapture = 1;
+		}
+		
+		remainingTurnsToCapture = defaultTurnsToCapture;
+		
+		if (healthP > 0){
+			defaultHP = healthP;
+		}
+		else{
+			defaultHP = 1;
+		}
+		
+		remainingHP = defaultHP;
+		
+		if (combatP > 0){
+			cp = combatP;
+		}
+		else{
+			cp = 1;
 		}
 		
 		kudomonList.add(this);
@@ -80,6 +104,63 @@ public class Kudomon {
 				}
 			default:
 				return false;
+		}
+	}
+	
+	public Kudomon battle(Kudomon toBattle){
+		boolean toStart = rng.nextBoolean();
+		Kudomon first;
+		Kudomon second;
+		
+		if(!toStart){
+			first = this;
+			second = toBattle;
+		}
+		else{
+			first = toBattle;
+			second = this;
+		}
+		
+		boolean isFirstEffectiveAgainstSecond = first.isSuperEffectiveAgainst(second);
+		boolean isSecondEffeciveAgainstFirst = second.isSuperEffectiveAgainst(first);
+		
+		boolean currentTurn = false;
+		
+		while(true){
+			if(!currentTurn){
+				System.out.println("It is " + first + "'s turn!");
+				if(isFirstEffectiveAgainstSecond){
+					System.out.println(first + " is super effective against " + second + " !");
+					second.remainingHP = 0;
+				}
+				else{
+					System.out.println(first + " hits " + second + " for " + first.cp + " points!" );
+					second.remainingHP -= first.cp;
+					System.out.println(second + " has " + second.remainingHP + " remaining!");
+				}
+			}
+			else{
+				System.out.println("It is " + second + "'s turn!");
+				if(isSecondEffeciveAgainstFirst){
+					System.out.println(second + " is super effective against " + first + " !");
+					first.remainingHP = 0;
+				}
+				else{
+					System.out.println(second + " hits " + first + " for " + second.cp + " points!" );
+					first.remainingHP -= second.cp;
+					System.out.println(first + " has " + first.remainingHP + " remaining!");
+				}
+			}
+			
+			if(first.remainingHP<=0){
+				return second;
+			}
+			else if(second.remainingHP<=0){
+				return first;
+			}
+			else{
+				currentTurn = !currentTurn;
+			}		
 		}
 	}
 	
@@ -138,5 +219,9 @@ public class Kudomon {
 	
 	public void decrementRemainingTurnsToCapture(){
 		--remainingTurnsToCapture;
+	}
+	
+	public void resetHP(){
+		remainingHP = defaultHP;
 	}
 }
