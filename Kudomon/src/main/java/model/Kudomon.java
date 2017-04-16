@@ -153,13 +153,18 @@ public class Kudomon {
 			}
 			
 			if(first.remainingHP<=0){
+				System.out.println(first + " Kudomon died, the winner is " + second + "!");
+				second.resetHP();
 				return second;
 			}
 			else if(second.remainingHP<=0){
+				System.out.println(second + " Kudomon died, the winner is " + first + "!");
+				first.resetHP();
 				return first;
 			}
 			else{
 				currentTurn = !currentTurn;
+				System.out.println();
 			}		
 		}
 	}

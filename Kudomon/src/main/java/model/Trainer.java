@@ -1,7 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Trainer {
 	
@@ -14,7 +13,7 @@ public class Trainer {
 	
 	private ArrayList<Kudomon> capturedKudomon;
 	
-	private static ArrayList<Trainer> trainerList = new ArrayList();
+	private static ArrayList<Trainer> trainerList = new ArrayList<Trainer>();
 	
 	public Trainer(String n, int x, int y){
 		name = n;
@@ -62,7 +61,7 @@ public class Trainer {
 			capturedKudomon.add(kudomon);
 			Kudomon.getKudomonList().remove(kudomon);
 			captureInProgress = null;
-			System.out.println(name + " captured " + kudomon.getSpecies() + " !");
+			System.out.println(name + " captured " + kudomon.getSpecies() + "!");
 		}
 		else{
 			System.out.println(name + " needs " + kudomon.getRemainingTurnsToCapture() + " turns to capture " + kudomon.getSpecies() + "!");
@@ -82,7 +81,12 @@ public class Trainer {
 		return captureInProgress;
 	}
 	
+	public ArrayList<Kudomon> getCapturedKudomons(){
+		return capturedKudomon;
+	}
+	
 	public static ArrayList<Trainer> getTrainerList(){
 		return trainerList;
 	}
+	
 }

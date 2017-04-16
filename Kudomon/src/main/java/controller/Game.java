@@ -1,8 +1,8 @@
 package controller;
 
-import java.awt.Choice;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.Random;
 import java.util.Scanner;
 
 import model.Kudomon;
@@ -10,9 +10,11 @@ import model.Trainer;
 
 public class Game {
 	private Scanner scanner;
+	private Random rnd;
 	
 	public Game(){
 		scanner = new Scanner(System.in);
+		rnd = new Random();
 	}
 	
 	public void startGame(){
@@ -72,7 +74,7 @@ public class Game {
 						case 1:
 							ArrayList<Kudomon> nearbyKudomons = currentTrainer.getNearbyKudomons();
 						
-							if(nearbyKudomons.size() == 0){
+							if(nearbyKudomons.isEmpty()){
 								System.out.println("There are no Kudomons nearby, please select another action!");
 								choice = optionSelector();
 								continue choiceLoop;
@@ -83,7 +85,7 @@ public class Game {
 									System.out.print(i + " - " + nearbyKudomons.get(i) + " ");
 								}
 								System.out.println("\n" +  "Which one do you want to capture?");
-								int toCapture = captureSelector(nearbyKudomons);
+								int toCapture = entitySelector(nearbyKudomons);
 								
 								if(nearbyKudomons.get(toCapture).getDefaultTurnsToCapture() == nearbyKudomons.get(toCapture).getRemainingTurnsToCapture()){
 									currentTrainer.startCapture(toCapture);
@@ -95,8 +97,52 @@ public class Game {
 						
 							break choiceLoop;
 						case 2:
-							//Part 4 function(s) get called here
-							break;
+							if(currentTrainer.getCapturedKudomons().isEmpty()){
+								System.out.println("You have no Kudomons! Please capture one first!");
+								choice = optionSelector();
+								continue choiceLoop;
+							}
+							
+							ArrayList<Trainer> selectableTrainers = new ArrayList<Trainer>();
+							
+							for(Trainer tr : Trainer.getTrainerList()){
+								if (!tr.equals(currentTrainer) && !tr.getCapturedKudomons().isEmpty()){
+									selectableTrainers.add(tr);
+								}
+							}
+							
+							if(selectableTrainers.isEmpty()){
+								System.out.println("There are no Trainers you can fight right now, please select another action!");
+								choice = optionSelector();
+								continue choiceLoop;
+							}
+							else{
+								System.out.println("These trainers can be battled:");
+								for (int i = 0; i<selectableTrainers.size(); ++i){
+									System.out.print(i + " - " + selectableTrainers.get(i) + " ");
+								}
+								
+								int toSelect = entitySelector(selectableTrainers);
+								Trainer selectedTrainer = selectableTrainers.get(toSelect);
+								
+								int indexOfAttacker = rnd.nextInt(currentTrainer.getCapturedKudomons().size());
+								int indexOfDefender = rnd.nextInt(selectedTrainer.getCapturedKudomons().size());
+								
+								Kudomon attacker = currentTrainer.getCapturedKudomons().get(indexOfAttacker);
+								Kudomon defender = selectedTrainer.getCapturedKudomons().get(indexOfDefender);
+								
+								Kudomon winner = attacker.battle(defender);
+								
+								if (winner.equals(attacker)){
+									System.out.println(currentTrainer + " wins! " + selectedTrainer + "'s Kudomon dies!");
+									selectedTrainer.getCapturedKudomons().remove(defender);
+								}
+								else{
+									System.out.println(selectedTrainer + " wins! " + currentTrainer + "'s Kudomon dies!");
+									currentTrainer.getCapturedKudomons().remove(attacker);
+								}
+							}
+							break choiceLoop;
 						case 3:
 							System.out.println("Thank you for playing Kudomon Go!");
 							break gameLoop;
@@ -146,14 +192,14 @@ public class Game {
 		return choice;
 	}
 	
-	private int captureSelector(ArrayList<Kudomon> nearbyList){
-		int toCapture = 0;
+	private int entitySelector(ArrayList<?> nearbyList){
+		int toSelect = 0;
 		
 		while(true){
 			try{
-				toCapture = scanner.nextInt();
-				if (toCapture < 0 || toCapture >= nearbyList.size()){
-					System.out.println("Please input a valid Kudomon number!" + "\n");
+				toSelect = scanner.nextInt();
+				if (toSelect < 0 || toSelect >= nearbyList.size()){
+					System.out.println("Please input a valid number!" + "\n");
 					continue;
 				}
 				break;
@@ -163,6 +209,6 @@ public class Game {
 				scanner.next();
 			}
 		}
-		return toCapture;
+		return toSelect;
 	}
 }
