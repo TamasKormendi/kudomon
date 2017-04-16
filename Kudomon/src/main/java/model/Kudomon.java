@@ -1,7 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Random;
 
 public class Kudomon {
@@ -19,9 +18,9 @@ public class Kudomon {
 	
 	private Type type;
 	
-	private Random rng;
-	
 	private static ArrayList<Kudomon> kudomonList = new ArrayList<Kudomon>();
+	
+	private Random rng;
 	
 	public Kudomon(String sp, int x, int y, int captureTurns, int healthP, int combatP, Type t){
 		species = sp;
@@ -130,13 +129,13 @@ public class Kudomon {
 			if(!currentTurn){
 				System.out.println("It is " + first + "'s turn!");
 				if(isFirstEffectiveAgainstSecond){
-					System.out.println(first + " is super effective against " + second + " !");
+					System.out.println(first + " is super effective against " + second + "!");
 					second.remainingHP = 0;
 				}
 				else{
 					System.out.println(first + " hits " + second + " for " + first.cp + " points!" );
 					second.remainingHP -= first.cp;
-					System.out.println(second + " has " + second.remainingHP + " remaining!");
+					System.out.println(second + " has " + second.remainingHP + " HP remaining!");
 				}
 			}
 			else{
@@ -148,7 +147,7 @@ public class Kudomon {
 				else{
 					System.out.println(second + " hits " + first + " for " + second.cp + " points!" );
 					first.remainingHP -= second.cp;
-					System.out.println(first + " has " + first.remainingHP + " remaining!");
+					System.out.println(first + " has " + first.remainingHP + " HP remaining!");
 				}
 			}
 			
@@ -167,26 +166,6 @@ public class Kudomon {
 				System.out.println();
 			}		
 		}
-	}
-	
-	@Override
-	public boolean equals(Object obj){
-		if (obj == this){
-			return true;
-		}
-		if (!(obj instanceof Kudomon)){
-			return false;
-		}
-		Kudomon kudo = (Kudomon) obj;
-		
-		return positionX == kudo.positionX && positionY == kudo.positionY && defaultTurnsToCapture == kudo.defaultTurnsToCapture &&
-				remainingTurnsToCapture == kudo.defaultTurnsToCapture &&
-				Objects.equals(species, kudo.species) && Objects.equals(type, kudo.type);
-	}
-	
-	@Override
-	public int hashCode(){
-		return Objects.hash(species, positionX, positionY, defaultTurnsToCapture, remainingTurnsToCapture, type);
 	}
 	
 	@Override

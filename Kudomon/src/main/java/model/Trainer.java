@@ -88,5 +88,4 @@ public class Trainer {
 	public static ArrayList<Trainer> getTrainerList(){
 		return trainerList;
 	}
-	
 }

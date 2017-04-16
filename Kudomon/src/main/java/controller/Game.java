@@ -19,17 +19,17 @@ public class Game {
 	
 	public void startGame(){
 		System.out.println("Welcome to Kudomon!");
-		System.out.print("Please create a trainer for every player - type \"q\" as the name when you're done");
+		System.out.print("Please create a Trainer for every player - type \"q\" as the name when you're done");
 		
 		int playerNumber = 0;
 		while(true){
-			System.out.println("\n" + "Please enter a name for player " + playerNumber + "'s trainer: ");
+			System.out.println("\n" + "Please enter a name for player " + playerNumber + "'s Trainer: ");
 			String name = scanner.next();
 			int posX;
 			int posY;
 			
 			if(name.equals("q") && playerNumber == 0){
-				System.out.println("You need at least one trainer to play!");
+				System.out.println("You need at least one Trainer to play!");
 				continue;
 			}
 			else if(name.equals("q")){
@@ -158,11 +158,13 @@ public class Game {
 	
 	private int coordinateReader(String axis){
 		int coordinate = 0;
-		while(true){
+		boolean waitingForValidInput = true;
+		
+		while(waitingForValidInput){
 			try{
 				System.out.println("Give the " + axis + " co-ordinate for the trainer: ");
 				coordinate = scanner.nextInt();
-				break;
+				waitingForValidInput = false;
 			}
 			catch(InputMismatchException e){
 				System.out.println("Please input a valid number!" + "\n");
@@ -174,15 +176,16 @@ public class Game {
 	
 	private int optionSelector(){
 		int choice = 0;
+		boolean waitingForValidInput = true;
 		
-		while(true){
+		while(waitingForValidInput){
 			try{
 				choice = scanner.nextInt();
 				if (choice < 0 || choice > 3){
 					System.out.println("Please input a number between 0-3 inclusive!" + "\n");
 					continue;
 				}
-				break;
+				waitingForValidInput = false;
 			}
 			catch(InputMismatchException e){
 				System.out.println("Please input a valid number!" + "\n");
@@ -194,15 +197,16 @@ public class Game {
 	
 	private int entitySelector(ArrayList<?> nearbyList){
 		int toSelect = 0;
+		boolean waitingForValidInput = true;
 		
-		while(true){
+		while(waitingForValidInput){
 			try{
 				toSelect = scanner.nextInt();
 				if (toSelect < 0 || toSelect >= nearbyList.size()){
 					System.out.println("Please input a valid number!" + "\n");
 					continue;
 				}
-				break;
+				waitingForValidInput = false;
 			}
 			catch(InputMismatchException e){
 				System.out.println("Please input a valid number!" + "\n");

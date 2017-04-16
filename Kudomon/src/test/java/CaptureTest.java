@@ -11,38 +11,38 @@ import model.Type;
 
 public class CaptureTest {
 
-	Trainer testTrainer1 = new Trainer("Mr Test", 10, 10);
+	Trainer testTrainer = new Trainer("Mr Test", 10, 10);
 	
-	Kudomon kudo1 = new Kudomon("TestSpecies1", 15, 15, 1, 50, 10, Type.ELECTRIC);
-	Kudomon kudo2 = new Kudomon("TestSpecies2", 7, 7, 1, 40, 15, Type.FIRE);
-	Kudomon kudo3 = new Kudomon("TestSpecies3", 1000, 1, 1000, 100, 2, Type.GRASS);
+	Kudomon kudoElectric = new Kudomon("TestElectric", 15, 15, 1, 50, 10, Type.ELECTRIC);
+	Kudomon kudoFire = new Kudomon("TestFire", 7, 7, 1, 40, 15, Type.FIRE);
+	Kudomon kudoGrass = new Kudomon("TestGrass", 1000, 1, 1000, 100, 2, Type.GRASS);
 	
 	@After
-	public void setup(){
+	public void cleanUp(){
 		Kudomon.getKudomonList().clear();
+		Trainer.getTrainerList().clear();
 	}
 	
 	@Test
 	public void testKudomonList(){
-
-		
+	
 		ArrayList<Kudomon> testList = new ArrayList<Kudomon>();
 		
-		testList.add(kudo1);
-		testList.add(kudo2);
-		testList.add(kudo3);
+		testList.add(kudoElectric);
+		testList.add(kudoFire);
+		testList.add(kudoGrass);
 		
 		assertEquals(testList, Kudomon.getKudomonList());
 	}
 	
 	@Test
 	public void testCapture(){
-		testTrainer1.startCapture(1);
+		testTrainer.startCapture(1);
 		
 		ArrayList<Kudomon> testFreeList = new ArrayList<Kudomon>();
 		
-		testFreeList.add(kudo1);
-		testFreeList.add(kudo3);
+		testFreeList.add(kudoElectric);
+		testFreeList.add(kudoGrass);
 		
 		assertEquals(testFreeList, Kudomon.getKudomonList());
 	}
