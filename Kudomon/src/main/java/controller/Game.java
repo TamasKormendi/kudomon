@@ -107,7 +107,8 @@ public class Game {
 								System.out.println("\n" +  "Which one do you want to capture?");
 								int toCapture = entitySelector(nearbyKudomons);
 								
-								//If the Kudomon's default and remaining turns to capture are the same then its capturing can be started
+								//If the Kudomon's default and remaining turns to capture are the same (so no Trainers are capturing it now) then its
+								//capturing can be started
 								if(nearbyKudomons.get(toCapture).getDefaultTurnsToCapture() == nearbyKudomons.get(toCapture).getRemainingTurnsToCapture()){
 									currentTrainer.startCapture(toCapture);
 								}

@@ -168,7 +168,7 @@ public class Kudomon {
 		
 		//The main battle loop, it ends when a Kudomon dies
 		while(true){
-			//If currentTurn is false then it's the "First" Kudomon's turn
+			//If currentTurn is false then it's the "first" Kudomon's turn
 			if(!currentTurn){
 				System.out.println("It is " + first + "'s turn!");
 				//If first is super effective against second then first wins instantly
