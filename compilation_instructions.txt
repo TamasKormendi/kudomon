@@ -1,0 +1,5 @@
+Please make sure you have Gradle installed then run "gradle build" from the "Kudomon" folder.
+To run the program go to Kudomon/build/libs (on Win7, the generated .jar location might be different on other OSs) and type "java -jar Kudomon.jar"
+
+If gradle fails for some reason it should be possible to compile and run it from Kudomon/src/main/java with the normal Java compilation method
+("javac Main.java", "java Main" for compilation and running, respectively)
